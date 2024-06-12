@@ -1,4 +1,6 @@
-# LDD : Langage de Définition de Données (DDL: Data Definition Language)
+# LDD : Langage de Définition de Données (DDL: Data Definition Language) est utilisé pour définir la structure de la base de données.
+
+# Voici quelques-unes des principales commandes pour créer et modifier une base de données dans MySQL :
 
 ### Affichage des tables :
 ```sql
@@ -14,12 +16,12 @@ CREATE TABLE film(
 );
 ```
 
-### Afficher la structure de la table :
+### Affichage des colonnes d'une table :
 ```sql
 DESCRIBE nom_table;
 ```
 
-### Afficher le create table :
+### Affichage de la structure d'une table :
 ```sql
 SHOW CREATE TABLE nom_table;
 ```

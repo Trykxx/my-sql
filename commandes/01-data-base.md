@@ -7,7 +7,7 @@ mysql --version
 
 ### Connexion a MySQL
 ```sql
-mysql -u root -p
+mysql -u nom_utilisateur -p
 ```
 
 ### Deconnexion de MySQL
@@ -34,3 +34,12 @@ DROP DATABASE nom_bdd;
 ```sql
 USE nom_bdd;
 ```
+
+TODO a demander
+### Sauvegarde de la base de données
+```sql
+mysqldump -u nom_utilisateur -p nom_bdd > db.sql
+```
+
+# Ce ne sont là que quelques-unes des commandes de base pour MySQL.
+# Il existe de nombreuses autres fonctionnalités et commandes avancées disponibles pour interagir avec une base de données MySQL.
