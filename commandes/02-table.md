@@ -83,6 +83,4 @@ ALTER TABLE movie ADD COLUMN id_director INT;
 
 <!-- Ajouter une clé secondaire dans la table movie -->
 ALTER TABLE movie ADD CONSTRAINT fk_id_director FOREIGN KEY (id_director) REFERENCES director (id);
-
 ```
-
