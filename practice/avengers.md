@@ -102,3 +102,20 @@ ALTER TABLE figurine ADD CONSTRAINT fk_id_weapon FOREIGN KEY (weapon_id) REFEREN
 ```
 
 <!-- Mettre la table "weapon" en relation avec la table "figurine" : -->
+```sql
+UPDATE figurine SET weapon_id = 4 WHERE nom = 'Iron Man';
+```
+
+```sql
+SELECT * FROM figurine INNER JOIN weapon ON weapon_id = weapon.id;
+```
+
+<!-- non avenger et arme dont annee de sortie > 2010> -->
+```sql
+SELECT figurine.nom,weapon.nom FROM figurine INNER JOIN weapon ON weapon_id = weapon.id WHERE figurine.annee_sortie>2010;
+```
+
+<!-- recuperer le nom des figurines qui n'ont pas d'armes -->
+```sql
+SELECT figurine.nom FROM figurine LEFT JOIN weapon ON figurine.weapon_id = weapon.id WHERE weapon.id IS NULL;
+```
