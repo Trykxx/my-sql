@@ -1,14 +1,17 @@
 <!-- Créer la base de données school_db -->
+
 ```sql
 CREATE DATABASE school_db;
 ```
 
 <!-- Utiliser la base de données -->
+
 ```sql
 USE school_db;
 ```
 
 <!-- Créer la table "student" avec id, nom, prenom, date_naissance, adresse, email -->
+
 ```sql
 CREATE TABLE student(
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -21,6 +24,7 @@ CREATE TABLE student(
 ```
 
 <!-- Créer la table "subject" id, nom, description -->
+
 ```sql
 CREATE TABLE subject(
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -30,6 +34,7 @@ CREATE TABLE subject(
 ```
 
 <!-- Créer la table "note" avec id note et des clés étrangères pour student_id et subject_id -->
+
 ```sql
 CREATE TABLE note(
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -69,6 +74,7 @@ INSERT INTO student (nom,prenom,date_naissance,adresse,email) VALUES
     ('Walker', 'Mia', '2001-06-08', '369 Oakwood Street', 'mia.walker@example.com'),
     ('Hall', 'Elijah', '2002-08-16', '258 Cherry Street', 'elijah.hall@example.com');
 ```
+
  <!-- Insertion des matières
 
     ('Mathématiques', 'Calcul et algèbre'),
@@ -85,6 +91,7 @@ INSERT INTO subject (nom,description) VALUES
     ('Français', 'Grammaire et littérature'),
     ('Anglais', 'Conversation et grammaire');
 ```
+
  <!-- Insertion des notes pour chaque étudiant (exemples)
 
     (1, 1, 15.5),
@@ -97,7 +104,6 @@ INSERT INTO subject (nom,description) VALUES
     (4, 3, 11.5),
     (5, 4, 18.0),
     (5, 5, 16.5); -->
-
 
 ```sql
 INSERT INTO note (student_id,subject_id,note) VALUES
@@ -116,22 +122,40 @@ INSERT INTO note (student_id,subject_id,note) VALUES
 <!-- Voici quelques exemples de requêtes SQL avec des conditions, des limites et du tri appliqués à la table "étudiant" :
 
 1. Sélectionner tous les étudiants dont le nom est "Doe" : -->
+
 ```sql
 SELECT * FROM student WHERE nom = "Doe";
 ```
 
 <!-- 2. Sélectionner tous les étudiants âgés de moins de 20 ans : -->
+
 ```sql
-SELECT * FROM student WHERE nom = "Doe";
+SELECT * FROM student WHERE date_naissance > DATE_SUB(CURDATE(), INTERVAL 20 YEAR);
 ```
 
 3. Sélectionner les 5 premiers étudiants dans l'ordre alphabétique des noms :
 
+```sql
+SELECT * FROM student ORDER BY nom LIMIT 5;
+```
+
 4. Sélectionner les étudiants par ordre décroissant de leur date de naissance :
+
+```sql
+SELECT * FROM student ORDER BY date_naissance DESC;
+```
 
 5. Sélectionner les étudiants dont l'adresse contient le mot "Street" et limiter les résultats à 3 :
 
+```sql
+SELECT * FROM student WHERE adresse LIKE '%Street%' LIMIT 3;
+```
+
 6. Sélectionner les étudiants dont le nom commence par "S" et trier les résultats par prénom :
+
+```sql
+SELECT * FROM student WHERE nom LIKE 'S%' ORDER BY prenom;
+```
 
 Ces exemples montrent comment appliquer des conditions, des limites et du tri dans vos requêtes SQL pour la table "student". N'hésitez pas à les ajuster en fonction de vos critères de recherche spécifiques.
 
@@ -141,12 +165,25 @@ Voici quelques exemples de requêtes SQL qui utilisent les fonctions MIN, MAX, C
 
 1. Sélectionner la note minimale, maximale et le nombre total de notes pour chaque matière :
 
+```sql
+SELECT subject.nom AS matieres, MIN(note) AS note_minimale, MAX(note) AS note_maximale, COUNT(*) AS nombre_notes FROM note INNER JOIN subject ON subject.id = subject_id GROUP BY subject_id;
+```
+
 2. Sélectionner les étudiants ayant une moyenne supérieure à 15 :
 
+```sql
+SELECT student.nom AS etudiant, AVG(note) FROM note INNER JOIN student ON student.id = student_id GROUP BY student.nom HAVING AVG(note) > 15;
+```
+
 3. Sélectionner le nombre d'étudiants ayant obtenu une note supérieure à 16 dans chaque matière :
+```sql
+SELECT nom, COUNT(*) FROM note JOIN subject ON subject_id=subject.id WHERE note > 16 GROUP BY subject_id;
+```
 
 4. Sélectionner les matières ayant au moins cinq étudiants :
-
+```sql
+SELECT COUNT(*) FROM note JOIN subject ON subject_id = subject.id GROUP BY subject_id HAVING COUNT(*) > 5;
+```
 5. Sélectionner les étudiants ayant obtenu une note maximale dans chaque matière :
 
 Ces exemples illustrent l'utilisation des fonctions MIN, MAX, COUNT, GROUP BY et HAVING pour effectuer des calculs et filtrer les données en fonction de certaines conditions.
