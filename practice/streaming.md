@@ -224,15 +224,33 @@ SELECT nom_utilisateur,Animes.titre  FROM Liste_de_lecture INNER JOIN Utilisateu
 SELECT Utilisateurs.nom_utilisateur, Commentaires.contenu, Commentaires.date_commentaire, Animes.titre FROM Commentaires INNER JOIN Utilisateurs ON Commentaires.id_utilisateur = Utilisateurs.id_utilisateur INNER JOIN Animes ON Commentaires.id_anime = Animes.id_anime;
 
 ```
--   Affichez les animes avec une note moyenne supérieure à 8, triés par note décroissante et limitez les résultats à 5.
+<!-- -   Affichez les animes avec une note moyenne supérieure à 8, triés par note décroissante et limitez les résultats à 5. -->
 ```sql
 SELECT titre,note FROM Animes WHERE note > 8 ORDER BY note DESC LIMIT 5;
 ```
--   Affichez les utilisateurs et le nombre d'animes dans leurs listes de lecture, triés par nombre d'animes décroissant.
--   Affichez les 3 épisodes les plus longs avec le nom de l'anime et la durée de l'épisode.
--   Affichez les utilisateurs ayant laissé au moins 5 commentaires, triés par nombre de commentaires décroissant.
--   Affichez les animes et leur nombre total d'épisodes diffusés après 2020, triés par nombre d'épisodes décroissant.
 
+<!-- -   Affichez les utilisateurs et le nombre d'animes dans leurs listes de lecture, triés par nombre d'animes décroissant. -->
+```sql
+SELECT Utilisateurs.nom_utilisateur, COUNT(Liste_de_lecture.id_anime) AS nombre_animes FROM Liste_de_lecture INNER JOIN Utilisateurs ON Liste_de_lecture.id_utilisateur = Utilisateurs.id_utilisateur GROUP BY Utilisateurs.nom_utilisateur ORDER BY nombre_animes DESC;
+```
+
+<!-- -   Affichez les 3 épisodes les plus longs avec le nom de l'anime et la durée de l'épisode. -->
+```sql
+SELECT Animes.titre, Episodes.durée FROM Episodes INNER JOIN Animes ON Episodes.id_anime = Animes.id_anime ORDER BY Episodes.durée DESC LIMIT 3;
+```
+
+<!-- -   Affichez les utilisateurs ayant laissé au moins 5 commentaires, triés par nombre de commentaires décroissant. -->
+```sql
+SELECT nom_utilisateur, COUNT(*) AS nombre_commentaires FROM Commentaires INNER JOIN Utilisateurs ON Utilisateurs.id_utilisateur = Commentaires.id_utilisateur GROUP BY Utilisateurs.nom_utilisateur HAVING COUNT(*) >= 5 ORDER BY nombre_commentaires DESC;
+```
+
+<!-- -   Affichez les animes et leur nombre total d'épisodes diffusés après 2020, triés par nombre d'épisodes décroissant. -->
+```sql
+SELECT Animes.titre AS titre_anime, COUNT(Episodes.id_episode) AS nombre_episodes
+FROM Animes INNER JOIN Episodes ON Animes.id_anime = Episodes.id_anime WHERE YEAR(Episodes.date_sortie) > 2020 GROUP BY Animes.titre ORDER BY nombre_episodes DESC;
+
+
+```
 ## Exercice
 
 Créez la base de données et les tables selon les instructions ci-dessus. Insérez des données fictives et effectuez les requêtes SQL demandées. Vous pouvez personnaliser les données et les requêtes en fonction de vos préférences.
