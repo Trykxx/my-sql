@@ -210,12 +210,12 @@ SELECT song.titre,album.titre FROM song INNER JOIN album ON album_id = album.id 
 
 <!--? 3. Affichez les playlists et le nombre de chansons dans chaque playlist, triées par nom de playlist. -->
 ```sql
-SELECT nom, COUNT(*) AS nombre_titres FROM playlist_song INNER JOIN playlist ON playlist_id = playlist.id GROUP BY playlist.nom;
+SELECT nom, COUNT(*) AS nombre_titres FROM playlist_song INNER JOIN playlist ON playlist_id = playlist.id ORDER BY playlist.nom;
 ```
 
 <!--? 4. Affichez les utilisateurs et le nombre de playlists qu'ils ont créées. -->
 ```sql
-SELECT nom_utilisateur, COUNT(*) FROM playlist INNER JOIN user ON utilisateur_id = user.id GROUP BY playlist.id;
+SELECT nom_utilisateur, COUNT(*) FROM playlist INNER JOIN user ON utilisateur_id = user.id GROUP BY utilisateur_id;
 ```
 
 <!--? 5. Affichez les chansons d'une playlist spécifique, triées par titre de chanson. -->
@@ -225,14 +225,13 @@ SELECT song.titre,playlist.nom FROM playlist_song INNER JOIN song ON chanson_id 
 
 <!--? 6. Affichez les artistes avec le nombre total de chansons qu'ils ont. -->
 ```sql
-SELECT artist.nom,COUNT(*) FROM artist INNER JOIN album ON artist.id= album.artiste_id INNER JOIN song ON album.artiste_id=song.id GROUP BY artist.nom;
+SELECT artist.nom,COUNT(*) AS nombre_chansons FROM artist INNER JOIN album ON artist.id= album.artiste_id INNER JOIN song ON album.artiste_id=song.id GROUP BY artist.nom;
 ```
 
 <!--? 7. Affichez les chansons dont la durée est supérieure à 300 secondes, triées par durée décroissante. -->
 ```sql
-SELECT titre,duree FROM song WHERE duree> 300 ORDER BY titre DESC;
+SELECT titre,duree FROM song WHERE duree> 200 ORDER BY duree DESC;
 ```
-
 <!--? 8. Affichez les albums sortis après l'année 2000, triés par année de sortie. -->
 ```sql
 SELECT titre,annee_sortie FROM album WHERE annee_sortie >2000 ORDER BY annee_sortie;
